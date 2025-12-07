@@ -1,0 +1,214 @@
+\documentclass{beamer}
+\usepackage{verbatim}
+\usetheme{Boadilla}
+
+
+\newcommand{\ZZ}{\mathbb{Z}}
+\newcommand{\FF}{\mathbb{F}}
+\newcommand{\braces}[1]{\ensuremath{\{#1\}}}
+
+\title{Fall 2025 DRP Presentation}
+\author{Jeevan Shah}
+\institute{Rutgers}
+\date{\today}
+
+\begin{document}
+\begin{frame}
+    \titlepage
+\end{frame}
+
+\begin{frame}
+    \frametitle{Motivation}
+    When working in the ring $\ZZ/p\ZZ$ one natural question one might have would be `for some $a \in \ZZ/p\ZZ$ is $a$ a square'? Or, more formally, 
+    \begin{block}{}
+        For some $a \in \ZZ/p\ZZ$ does there exist a solution to the congruence 
+        \[
+            x^2 \equiv a \pmod{p} 
+        \]
+    \end{block}
+    For small primes, this is an easy question as we can simply use direct calcuation. For example, if I wanted to know if $2$ was a square mod $7$ all I have to do check the squares of $0, 1, 2, \ldots, 6 \pmod{7}$. Very quickly we can see that $3^2 = 9 \equiv 2 \pmod{7}$ and so $2$ is in fact a square mod $7$. But what if I wanted to know if $13$ was a square mod $73$? This is the question I will attempt to answer today by proving the law of quadratic reciprocity.
+\end{frame}
+
+\begin{frame}
+    \frametitle{Background (The Ring of Integers Modulo a Prime)}
+    As I mentioned earlier we will spend a lot of time working in the ring $\ZZ/n\ZZ$ which is the integers modulo $n$. It's important that we have a good grasp on this ring before moving forward. 
+    \begin{definition}
+        Let $n$ be an integer. Then the ring of integers modulo $n$, denoted $\ZZ/n\ZZ$ is the ring with operations addition and multiplication, and whose elements are the equivalence classes modulo $n$.
+        \[
+            \ZZ/n\ZZ = \braces{0, 1, 2, \ldots, n-1} 
+        \]
+    \end{definition}
+    It is fairly easy to see that $\ZZ/n\ZZ$ forms a ring (with addition and multiplication defined as usual). 
+\end{frame}
+
+\begin{frame}
+    \frametitle{Background (Algebraic Integers)}
+    \begin{definition}
+        An \textbf{algebraic integer} is a complex number $\omega$ that is the root of a polynomial $x^n + a_{1}x^{n-1} + \cdots + a_n = 0$, where $a_1, a_2, \ldots, a_n \in \mathbb{Z}$.
+    \end{definition} 
+    \begin{theorem}
+        The set of algebraic integers forms a ring.
+    \end{theorem}
+    When working in the ring of algebraic integers, $\Omega$, we define congruence as follows. If $\omega_1, \omega_1, \gamma, \alpha \in \Omega$, we say that $\omega_1 \equiv \omega_2 \pmod{\gamma}$ if $\omega_1 - \omega_2 = \gamma\alpha$. Congruence in $\Omega$ follows all the standard properties that holdin $\mathbb{Z}$. We also have the following that is true in $\Omega$: If $\omega_1, \omega_2 \in \Omega$ and $p \in \mathbb{Z}$ is a prime, then 
+    \[
+        \left(\omega_1 + \omega_2\right)^{p} \equiv \omega_1^p + \omega_2^p \pmod{p}. 
+    \]
+    This fact can be easily proven by expansion with the binomial theorem and the fact that $p \mid \left(\begin{smallmatrix} p \\ k \end{smallmatrix}\right)$ for $1 \leq k \leq p-1$.
+\end{frame}
+
+\begin{frame}
+    \frametitle{Background (Legendre Symbol)}
+    \begin{definition}
+       Let $p$ be a prime and $a$ any integer. We then define 
+       \[
+            \left(\frac{a}{p}\right) = \begin{cases}
+                1 \quad &\text{if $a$ is a square mod $p$} \\
+                -1 \quad &\text{if $a$ is not a square mod $p$} \\
+                0 \quad &\text{if $p\mid a$}
+            \end{cases}
+       \] 
+       as the \textbf{Legendre Symbol}.
+    \end{definition}
+    \begin{alertblock}{Properties of the Legendre Symbol}
+        \begin{enumerate}
+            \item $a^{p-1}/2 \equiv (a/p) \pmod{p}$
+            \item $(ab/p) = (a/p)(b/p)$
+            \item If $a \equiv b \pmod{p}$ then $(a/p) = (b/p)$
+        \end{enumerate}    
+    \end{alertblock}
+\end{frame}
+
+\begin{frame}
+    \frametitle{The Law of Quadratic Reciprocity}
+    With the following background established we can now state the Law of Quadratic Reciprocity:
+    \begin{theorem}
+        For two odd primes $p$ and $q$ with $p\neq\,q$
+        \[
+            \left(\frac{p}{q}\right)\left(\frac{q}{p}\right) = \left(-1\right)^{\left(\frac{p-1}{2}\right)\left(\frac{q-1}{2}\right)}
+        \]
+    \end{theorem}
+    We can notice that for any odd number, $n$, $n \equiv 1$ or $n \equiv 3$ mod $4$. If $n \equiv 1 \pmod{4}$ then $n-2/2$ will be an even quantity. If $n \equiv 3 \pmod{4}$ then $n-2/2$ will be an odd quantity. With this in mind we restate the theorem as follows: if \textbf{either} $p \equiv 1$ or $q \equiv 1$ mod $4$ then $(p/q) = (q/p)$, but if \textbf{both} $p \equiv 3$ and $q \equiv 3$ mod $4$ then $(p/q) = -(q/p)$. We also have the following `baseline' values:
+    \begin{align*}
+        (-1/p) &= (-1)^{(p-1)/2} \\
+        (2/p) &= (-1)^{(p^2-1)/8}
+    \end{align*}
+\end{frame}
+
+\begin{frame}
+    \frametitle{Foundations of the Proof (Roots of Unity)}
+    \begin{definition}
+        An $n$-th \textbf{root of unity} is any value that is a solution to the equation 
+        \[
+            x^{n} - 1 = 0
+        \]
+    \end{definition}
+    For the rest of this discussion we shall let $\zeta = \mathbf{e}^{2\pi i/p}$ which is a $p$-th root of unity. The following lemma is an important fact about $\zeta$ that we will use in our proof.
+    \begin{lemma}
+        The sum $\sum_{t=0}^{p-1}\zeta^{at}$ equals $p$ if $a\equiv 0 \pmod{p}$ and is $0$ otherwise.
+    \end{lemma}
+    \begin{proof}
+        If $a \equiv 0 \pmod{p}$ then $\zeta^{a} = 1$ by definition of a root of unity. It follows that $\sum_{t=0}^{p-1} = p$. If $a \not\equiv 0 \pmod{p}$ then $\zeta^a \neq 1$ and $ \sum_{t=0}^{p-1} = \left(\zeta^{ap} - 1\right)\left(\zeta^{a}-1\right) = 0$.
+    \end{proof}
+\end{frame}
+
+\begin{frame}
+    \frametitle{Foundations of the Proof (Quadratic Gauss Sums)}
+    \begin{alertblock}{Corollary to Lemma}
+       $p^{-1}\sum_{t=0}^{p-1}\zeta^{t\left(x-y\right)} = \delta(x, y)$, where $\delta(x, y) = 1$ if $x \equiv y \pmod{p}$ and $\delta(x, y) = 0$ if $x \not\equiv y \pmod{p}$. 
+    \end{alertblock}
+    \begin{definition}
+        A quadratic gauss sum, $g_a$ is defined as 
+        \[
+            g_a = \sum_{t=0}^{p-1} \left(\frac{t}{p}\right)\zeta^{at}
+        \]
+        with $g_1$ commonly notated as $g$.
+    \end{definition}
+    It is important to note that $g_a = (a/p)g$. 
+    \begin{lemma}
+        \[ g^2 = \left(-1\right)^{(p-1)/2}p \]
+    \end{lemma}
+\end{frame}
+
+\begin{frame}
+    \frametitle{Foundations of the Proof (Quadratic Gauss Sums) (cont.)}
+        To prove the lemma we will consider the sum $\sum_a^{p-1}g_{a}g_{-a}$ in two different ways and our result will follow from their equality. First, consider that if $a \not\equiv 0 \pmod{p}$ then $g_{a}g_{-1} = (a/p)(-a/p)g^2$ by the fact on the previous slide. However, we can simplify this further, 
+        \[
+            (a/p)(-a/p)g^2 = (a/p)(a/p)(-1/p)g^2 = (a^2/p)(-1/p)g^2 = (-1/p)g^2 
+        \]
+        by repeated application of the multiplicative property of the Legendre symbol and the fact that $(a^2/p) = 1$ since $a^2$ will (trivially) be a square mod $p$. Now, revisiting our sum:
+        \[
+            \sum_{a=0}^{p-1}g_{a}g_{-a} = \left(\frac{-1}{p}\right)\left(p-1\right)g^2.
+        \]
+        Note that despite the fact we are summing over $p$ terms, we have a $(p-1)$ in our closed form since $a\not\equiv\,0 \pmod{p}$. 
+\end{frame}
+
+\begin{frame}
+    \frametitle{Foundations of the Proof (Quadratic Gauss Sums) (cont.)}
+        The second way we will evaluate the sum is by definition of a Gauss sum. Using the definition we have 
+        \[
+            g_{a}g_{-a} = \sum_{x=0}^{p-1}\sum_{y=0}^{p-1}\left(\frac{x}{p}\right)\left(\frac{y}{p}\right)\zeta^{a\left(x-y\right)}.
+        \]
+        Now, we sum the entire thing over $a$:
+        \begin{align*}
+            \sum_{a=0}^{p-a}g_{a}g_{-a} &= \sum_{a}\sum_{x}\sum_{y} \left(\frac{x}{p}\right)\left(\frac{y}{p}\right)\zeta^{a\left(x-y\right)} \\
+            &= \sum_{x}\sum_{y} \left(\frac{x}{p}\right)\left(\frac{y}{p}\right)\sum_{a}\zeta^{a\left(x-y\right)} \\
+            &= \sum_{x}\sum_{y} \left(\frac{x}{p}\right)\left(\frac{y}{p}\right)\delta(x, y)p
+        \end{align*}
+\end{frame}
+
+\begin{frame}
+    \frametitle{Foundations of the Proof (Quadratic Gauss Sums) (cont.)}
+    \[
+        = \sum_{x}\sum_{y} \left(\frac{x}{p}\right)\left(\frac{y}{p}\right)\delta(x, y)p
+    \]
+    Notice that by definition of $\delta(x, y)$, this sum will only ever be nonzero when $x\equiv\,y\pmod{p}$. There are only $p-1$ pairs of $x$ and $y$ such that $\delta(x, y)$ is nonzero. Thus, 
+    \[
+        \sum_{x}\sum_{y} \left(\frac{x}{p}\right)\left(\frac{y}{p}\right)\delta(x, y)p = (p-1)p.
+    \]
+    Now combining this with our previous equality we find that 
+    \[
+        \left(\frac{-1}{p}\right)\left(p-1\right)g^2 = \left(p-1\right)p \Rightarrow g^2=\left(\frac{-1}{p}\right)p 
+    \]
+    which was desired.
+\end{frame}
+
+\begin{frame}
+    \frametitle{Proof of the Law of Quadratic Reciprocity}
+    With this information now in mind we can start with the proof. Consider $p^{*} = \left(-1\right)^{(p-1)/2}p$, and another odd prime $q$ such that $q\neq\,p$. We will be working with congruences mod $q$ in the ring of algebraic integers: 
+    \begin{align*}
+        &g^{q-1} = \left(g^2\right)^{(q-1)/2} = p^{*\left(q-1\right)/2} \equiv \left(\frac{p^*}{q}\right) \pmod{q} \\
+        &\Rightarrow g^{q} \equiv \left(\frac{p^*}{q}\right)g \pmod{q}
+    \end{align*}
+    Rewriting $g^q$ using the definition of the Gauss sum gives 
+    \[
+        g^{q} = \left(\sum\left(\frac{t}{p}\right)\zeta^{t}\right)^{q} \equiv \sum\left(\frac{t}{p}\right)^{q}\zeta^{qt} \equiv g_q \pmod{q}
+    \]
+    Recalling that $g_a = (a/p)g$, we now have that $g^{q} \equiv g_{q} \equiv (q/p)g \pmod{q}$, thus 
+    \[
+        \left(\frac{q}{p}\right)g \equiv \left(\frac{p^*}{q}\right)q \pmod{q}
+    \]
+\end{frame}
+
+\begin{frame}
+    \frametitle{Proof (cont.)}
+    If we multiply both sides by $g$ and apply the fact that $g^2 = p^*$ we have 
+    \begin{align*}
+        &\left(\frac{q}{p}p^{*}\right)p^* \equiv \left(\frac{p^{*}}{q}\right)p^* \pmod{q} \\
+        \Rightarrow& \left(\frac{q}{p}\right) \equiv \left(\frac{p^*}{q}\right) \pmod{q} \\
+        \Rightarrow& \left(\frac{q}{p}\right) = \left(\frac{p^*}{q}\right) 
+    \end{align*}
+    Which was to be shown. 
+\end{frame}
+
+\begin{frame}
+    \frametitle{Worked Example}
+    Earlier I asked if $13$ was a square, or quadratic residue, mod $73$. With the law of quadratic reciprocity we can now figure this out: 
+    \begin{align*}
+        \left(\frac{13}{73}\right) &= \left(-1\right)^{\left(\frac{13-1}{2}\right)\left(\frac{73-1}{2}\right)}\left(\frac{73}{13}\right) \\
+        &= \left(\frac{8}{13}\right) = \left(\frac{-5}{13}\right) = \left(\frac{-1}{13}\right)\left(\frac{5}{13}\right) = \left(-1\right)^{\frac{5-1}{2}}\left(\frac{5}{13}\right) \\
+        &= \left(-1\right)^{\left(\frac{13-1}{2}\right)\left(\frac{5-1}{2}\right)}\left(\frac{13}{5}\right) = \left(\frac{3}{5}\right) = \left(\frac{-2}{5}\right) \\
+        &= \left(\frac{-1}{5}\right)\left(\frac{2}{5}\right) = \left(-1\right)^{(5-1)/2}\left(-1\right)^{(5^2-1)/8} = -1
+    \end{align*}
+    Therefore, $13$ \textbf{is not} a square mod $73$.
+\end{frame}
+\end{document}
