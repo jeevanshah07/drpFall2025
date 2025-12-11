@@ -19,7 +19,7 @@
 
 \begin{frame}
     \frametitle{Motivation}
-    When working in the ring $\ZZ/p\ZZ$ one natural question one might have would be `for some $a \in \ZZ/p\ZZ$ is $a$ a square'? Or, more formally, 
+    When working in the ring $\ZZ/p\ZZ$ one natural question one might have would be `for some $a \in \ZZ/p\ZZ$, is $a$ a square'? Or, more formally, 
     \begin{block}{}
         For some $a \in \ZZ/p\ZZ$ does there exist a solution to the congruence 
         \[
@@ -81,13 +81,12 @@
             \left(\frac{p}{q}\right) = \left(-1\right)^{\left(\frac{p-1}{2}\right)\left(\frac{q-1}{2}\right)}\left(\frac{q}{p}\right)
         \]
     \end{theorem}
-    % more verbal, less text
     Notice the following: 
     \begin{itemize}
         \item $p$ \textbf{or} $q \equiv 1 \pmod{4} \Rightarrow \left(-1\right)^{\left(\frac{p-1}{2}\right)\left(\frac{q-1}{2}\right)} = 1$ 
         \item $p$ \textbf{and} $q \equiv 3 \pmod{4} \Rightarrow \left(-1\right)^{\left(\frac{p-1}{2}\right)\left(\frac{q-1}{2}\right)} = -1$ 
     \end{itemize}
-    We also have the following known Legendre Symbol expressions which we can use:
+    We also have the following known Legendre Symbol expressions:
     \begin{align*}
         (-1/p) &= (-1)^{(p-1)/2} \\
         (2/p) &= (-1)^{(p^2-1)/8}
@@ -176,7 +175,7 @@
     Earlier I asked if $11$ was a square, or quadratic residue, mod $71$. With the law of quadratic reciprocity we can now figure this out: 
     \begin{align*}
         \left(\frac{11}{71}\right) &= \left(-1\right)^{(11-1/2)(71-1/2)}\left(\frac{71}{11}\right) \\
-        &= \left(\frac{5}{11}\right) = -\left(-1\right)^{(5-1/2)(11-1/2)}\left(\frac{11}{5}\right) \\
+        &= -\left(\frac{5}{11}\right) = -\left(-1\right)^{(5-1/2)(11-1/2)}\left(\frac{11}{5}\right) \\
         &= -\left(\frac{1}{5}\right) = -\left(-1\right)^{5-1/2} = -1
     \end{align*}
     Therefore, $11$ \textbf{is not} a square mod $71$. This also implies that $71$ \textbf{is} a square mod $11$.
