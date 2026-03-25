@@ -1,0 +1,288 @@
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% LaTeX poster template
+% Created by Nathaniel Johnston
+% August 2009
+% http://www.nathanieljohnston.com/2009/08/latex-poster-template/
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\documentclass[final]{beamer}
+\usepackage[most]{tcolorbox}
+\usepackage[scale=1.24]{beamerposter}
+\usepackage{graphicx}			% allows us to import images
+\usepackage{wrapfig}
+\usepackage{caption}
+
+%-----------------------------------------------------------
+% Define the column width and poster size
+% To set effective sepwid, onecolwid and twocolwid values, first choose how many columns you want and how much separation you want between columns
+% The separation I chose is 0.024 and I want 4 columns
+% Then set onecolwid to be (1-(4+1)*0.024)/4 = 0.22
+% Set twocolwid to be 2*onecolwid + sepwid = 0.464
+%-----------------------------------------------------------
+
+\newlength{\sepwid}
+\newlength{\onecolwid}
+\newlength{\twocolwid}
+\newlength{\threecolwid}
+\setlength{\paperwidth}{48in}
+\setlength{\paperheight}{36in}
+\setlength{\sepwid}{0.024\paperwidth}
+\setlength{\onecolwid}{0.22\paperwidth}
+\setlength{\twocolwid}{0.344\paperwidth}
+\setlength{\threecolwid}{0.708\paperwidth}
+\setlength{\topmargin}{-0.5in}
+\usetheme{confposter}
+\usepackage{exscale}
+
+%-----------------------------------------------------------
+% The next part fixes a problem with figure numbering. Thanks Nishan!
+% When including a figure in your poster, be sure that the commands are typed in the following order:
+% \begin{figure}
+% \includegraphics[...]{...}
+% \caption{...}
+% \end{figure}
+% That is, put the \caption after the \includegraphics
+%-----------------------------------------------------------
+
+\usecaptiontemplate{
+\small
+\structure{\insertcaptionname~\insertcaptionnumber:}
+\insertcaption}
+
+%-----------------------------------------------------------
+% Define colours (see beamerthemeconfposter.sty to change these colour definitions)
+%-----------------------------------------------------------
+
+\newcommand{\ZZ}{\mathbb{Z}}
+\newcommand{\FF}{\mathbb{F}}
+
+\setbeamercolor{block title}{fg=RoyalBlue,bg=white}
+\setbeamercolor{block body}{fg=black,bg=white}
+\setbeamercolor{block alerted title}{fg=white,bg=dblue!70}
+\setbeamercolor{block alerted body}{fg=black,bg=dblue!10}
+
+%-----------------------------------------------------------
+% Name and authors of poster/paper/research
+%-----------------------------------------------------------
+
+\title{The Law of Quadratic Reciprocity}
+\author{Jeevan Shah, Advisor: Adam Earnst}
+\institute{Rutgers Mathematics Department}
+
+%-----------------------------------------------------------
+% Start the poster itself
+%-----------------------------------------------------------
+
+\begin{document}
+\begin{frame}[t]
+  \begin{columns}[t]												% the [t] option aligns the column's content at the top
+    \begin{column}{\sepwid}\end{column}			% empty spacer column
+    
+    %--------------------------------------------------------
+    % Column 1 
+    %--------------------------------------------------------
+    \begin{column}{\onecolwid}
+      \begin{block}{Motivation}
+        When working in the ring of the integers mod a prime, $\ZZ/p\ZZ$ it is natural to wonder whether or not a number is a perfect square, or more formally, 
+        \begin{center}
+            \begin{tcolorbox}[width=0.8\textwidth, colback=white, colframe=black]
+            \centering
+                For some $a \in \ZZ/p\ZZ$, does there exist an $x \in \ZZ/p\ZZ$ such that
+                \[
+                    x^2 \equiv a \pmod p \, ?
+                \]
+            \end{tcolorbox}
+        \end{center}
+        For small values of $a$ and $p$ this question can be pretty trivial. For example, if one were to ask if $2$ is a square mod $7$ we could simply check every element (equivalence class) in $\ZZ/7\ZZ$: 
+        \begin{align*}
+            0^2 &= 0 \not\equiv 2 \pmod 7 \quad 
+            1^2 = 1 \not\equiv 2 \pmod 7 \\
+            2^2 &= 4 \not\equiv 2 \pmod 7 \quad
+            3^2 = 9 \equiv 2 \pmod 7 \\
+        \end{align*}
+        so, $2$ \textbf{is} a square mod $7$! But what if I asked if $11$ was a square mod $71$ or if $41$ was a square mod $67$? It would be quite annoying to calculate the squares of every element of $\ZZ/71\ZZ$ and check congruence - this is where the \textbf{Law of Quadratic Reciprocity} comes in!
+        \vskip1ex
+       
+        \vskip1ex
+        
+      \end{block}
+      \vskip2ex
+      \begin{block}{Background (Definitions \& Theorems)}
+        \begin{itemize}
+            \item A \textbf{ring} is a triple $(R, +, \times)$ which has two operations (often referred to as addition and multiplication) such that 
+            \begin{enumerate}
+                \item $(R, +)$ is an abelian group with identity $0$
+                \item $\times$ is an associative, binary operation on $R$ with identity $1$
+                \item Multiplication distributes over addition
+            \end{enumerate}
+            
+            \item An \textbf{algebraic integer} is a complex number $\omega$ that is the root of a polynomial $x^n +a_1x^{n-1} + \cdots + a_n = 0$ where $a_1, a_2, \ldots, a_n \in \ZZ$.
+            \begin{itemize}
+                \item \textbf{Theorem:} \textit{The set of algebraic integers forms a ring, $\Omega$}
+                \item Congruence in $\Omega$ follows all the standard properties of congruence in $\ZZ$ with the added property that $(\omega_1 + \omega_2)^p \equiv \omega_1^p + \omega_2^p \pmod p$ for $\omega_1, \omega_2 \in \Omega$ and $p \in \ZZ$ prime (proved by expanded with the binomial theorem).
+            \end{itemize}
+
+            \item The \textbf{Legendre Symbol} is defined for $p \in \ZZ$ a prime and $a \in \ZZ$ as follows:
+            \[
+                \left(\frac{a}{p}\right) = \begin{cases}
+                    1 &\quad \text{if $a$ is a square mod $p$} \\
+                    -1 &\quad \text{if $a$ is not a square mod $p$} \\
+                    0 &\quad \text{if $p \mid a$}
+                \end{cases}
+            \]
+            \item The Legendre Symbol has $3$ main important properties 
+            \begin{enumerate}
+                \item  $a^{(p-1)/2} \equiv (a/p) \pmod {p}$
+                \item $(ab/p) = (a/p)(b/p)$
+                \item If $a \equiv b \pmod{p}$ then $(a/p) = (b/p)$
+            \end{enumerate}
+            
+            \item An $n$-th \textbf{root of unity} is any value is a solution to the equation $x^{n} - 1 = 0$
+            \begin{itemize}
+                \item We will define $\zeta = \bf{e}^{2\pi i/p}$ which is a $p$-th root of unity
+            \end{itemize}
+
+            \item \textbf{Lemma (Orthogonality of Characters):} \textit{The sum $\sum_{t=0}^{p-1}\zeta^{at}$ equals $p$ is $a \equiv 0 \pmod p$ and is $0$ otherwise}
+        \end{itemize}        
+      \end{block}
+      \vskip2ex
+
+    \end{column}
+    
+    %--------------------------------------------------------
+    % Column 2 
+    %--------------------------------------------------------
+
+    \begin{column}{\sepwid}\end{column}			% empty spacer column
+    
+    \begin{column}{\twocolwid}
+    \begin{block}{Quadratic Gauss Sums} 
+        A \textbf{quadratic gauss sum}, $g_a$ is defined as 
+        \[
+            g_a = \sum_{t=0}^{p-1} \left(\frac{t}{p}\right)\zeta^{at}
+        \]
+        with $g_1$ commonly notated as $g$. Interestingly, we have the equivalence that 
+        \[
+            g_a = \left(\frac{a}{p}\right)g.
+        \]
+        We have the following important lemma surrounding gauss sums:
+        \begin{tcolorbox}[title=Lemma]
+            \[
+                g^2 = (-1)^{(p-1)/2}p
+            \]
+        \end{tcolorbox}
+        We can prove this lemma by considering the $\sum_{a=0}^{p-1}g_a g_{-a}$ in two different ways, with our result following from their equality. First we use the identity $g_a = (a/p)g$,
+        \[
+            g_a g_{-a} = \left(\frac{a}{p}\right)\left(\frac{-a}{p}\right)g^2
+        \] 
+        and since the Legendre Symbol is multiplicative, 
+        \[
+            g_g g_{-a} = \left(\frac{-a^2}{p}\right)g^2 = \left(\frac{-1}{p}\right)\left(\frac{a^2}{p}\right)g^2.
+        \]
+        If $a \not\equiv 0 \pmod p$ then $a^2$ is a quadratic residue so $(a^2/p) = 1$. Thus,
+        \[
+            \sum_{a=0}^{p-1}g_a g_{-a} = \left(\frac{-1}{p}\right)(p-1)g^2
+        \]
+        since there are $p-1$ nonzero values of $a \bmod p$. 
+        Next, we start by rewriting the product $g_a g_{-a}$ using the definition of a Gauss Sum:
+        \[
+            g_a g_{-a} = \left(\sum_{x=0}^{p-1}\left(\frac{x}{p}\right)\zeta^{ax}\right) \left(\sum_{y=0}^{p-1}\left(\frac{y}{p}\right)\zeta^{-ay}\right) = \sum_x \sum_y \left(\frac{x}{p}\right)\left(\frac{y}{p}\right)\zeta^{a(x-y)}
+        \]
+        Summing over $a$ and applying the orthogonality of characters then gives
+        \[
+            \sum_{a}g_a g_{-a} = \sum_a \sum_x \sum_y \left(\frac{x}{p}\right)\left(\frac{y}{p}\right)\zeta^{a(x-y)} = (p-1)p.
+        \]
+        So, 
+        \[
+            \left(\frac{-1}{p}\right)(p-1)g^2 = (p-1)p \Rightarrow g^2 = \left(\frac{-1}{p}\right)p
+        \]
+        which was to be shown. \qed
+    \end{block}
+    \begin{block}{The Law of Quadratic Reciprocity}
+        We now formally state the Law of Quadratic Reciprocity:
+        \begin{tcolorbox}[title=Theorem (Quadratic Reciprocity)]
+            \textit{For two odd primes $p$ and $q$ with $p \neq q$}
+            \[
+                \left(\frac{p}{q}\right) = (-1)^{\left(\frac{p-1}{2}\right)\left(\frac{q-1}{2}\right)}\left(\frac{q}{p}\right)
+            \]
+        \end{tcolorbox}
+        Notice the following:
+        \begin{enumerate}
+            \item if $p$ \textbf{or} $q \equiv 1 \pmod 4$ then 
+            \[
+                (-1)^{\left(\frac{p-1}{2}\right)\left(\frac{q-1}{2}\right)} = 1
+            \]
+            \item if $p$ \textbf{and} $q \equiv 3 \pmod 4$ then
+            \[
+                (-1)^{\left(\frac{p-1}{2}\right)\left(\frac{q-1}{2}\right)} = -1.
+            \]
+            As well, it can be shown that for any $p$ then 
+            \[
+                \left(\frac{-1}{p}\right) = (-1)^{(p-1)/2} \quad \text{and}\quad \left(\frac{2}{p}\right) = (-1)^{(p^2-1)/8}.
+            \]
+        \end{enumerate}
+      \end{block}
+      \vskip2ex
+      \vskip2ex
+    \end{column}
+    
+    %--------------------------------------------------------
+    % Column 3 
+    %--------------------------------------------------------
+    
+  \begin{column}{\sepwid}\end{column}			% empty spacer column
+  \begin{column}{\twocolwid}
+      \begin{block}{Proof}
+        Consider $p^* = (-1)^{(p-1)/2}p = g^2$, and another odd prime $q$ such that $q \neq p$. We will be working with congruences mod $q$ in the ring of algebraic integers: 
+       \begin{align*}
+            &g^{q-1} = \left(g^2\right)^{(q-1)/2} = p^{*\left(q-1\right)/2} \equiv \left(\frac{p^*}{q}\right) \pmod{q} \\
+            &\Rightarrow g^{q} \equiv \left(\frac{p^*}{q}\right)g \pmod{q}
+        \end{align*}
+        Rewriting $g^q$ using the definition of the Gauss sum gives 
+        \[
+            g^{q} = \left(\sum\left(\frac{t}{p}\right)\zeta^{t}\right)^{q} \equiv \sum\left(\frac{t}{p}\right)^{q}\zeta^{qt} \equiv g_q \pmod{q}
+        \]
+        Recalling that $g_a = (a/p)g$, we now have that $g^{q} \equiv g_{q} \equiv (q/p)g \pmod{q}$, thus 
+        \[
+            \left(\frac{q}{p}\right)g \equiv \left(\frac{p^*}{q}\right)g \pmod{q}
+        \]
+        If we multiply both sides by $g$ and apply the fact that $g^2 = p^*$ we have 
+        \begin{align*}
+            &\left(\frac{q}{p}\right)p^* \equiv \left(\frac{p^{*}}{q}\right)p^* \pmod{q} \\
+            \Rightarrow& \left(\frac{q}{p}\right) \equiv \left(\frac{p^*}{q}\right) \pmod{q} \\
+            \Rightarrow& \left(\frac{q}{p}\right) = \left(\frac{p^*}{q}\right) 
+        \end{align*}
+        Which was to be shown. \qed
+       \vskip1ex
+       \vskip1ex
+      \end{block}
+      
+      \vskip2ex
+
+      \begin{block}{Example}
+        Earlier we wondered if $11$ was a square, or quadratic residue, mod $71$. Using the law of quadratic reciprocity we can figure this out: 
+        \begin{align*}
+            \left(\frac{11}{71}\right) &= \left(-1\right)^{(11-1/2)(71-1/2)}\left(\frac{71}{11}\right) \\
+            &= -\left(\frac{5}{11}\right) = -\left(-1\right)^{(5-1/2)(11-1/2)}\left(\frac{11}{5}\right) \\
+            &= -\left(\frac{1}{5}\right) = -\left(-1\right)^{5-1/2} = -1
+        \end{align*}
+        Therefore, $11$ \textbf{is not} a square mod $71$. This also implies that $71$ \textbf{is} a square mod $11$.
+      \end{block}
+
+      \vskip2ex
+      
+      \begin{block}{References}
+        
+        K. Ireland and M. Rosen \textit{A Classical Introduction to Modern Number Theory}
+      \end{block}
+      \vskip2ex
+      
+      \begin{block}{Future Work}
+      
+      \phantom{x}\hspace{1.5cm} Going forward, I hope to continue to learn more about quadratic reciprocity as well as the extensions such as cubic, quartic, and bi-quadratic reciprocity. I also would like to learn more about how quadratic reciprocity can be used to help factor in the Gaussian Integers $\ZZ[i]$.
+      \end{block}
+    \end{column}
+ \end{columns}
+\end{frame}
+\end{document}
+
